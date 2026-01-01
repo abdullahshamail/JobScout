@@ -1,0 +1,65 @@
+ABDULLAH SHAMAIL
+Ames, Iowa – Open to Relocation
+515-708-9021   ashamail@iastate.edu   www.linkedin.com/in/abdullahshamail   github.com/abdullahshamail
+EDUCATION
+Iowa State University (ISU), Ames, IA					                                   	       Expected May 2026
+Doctor of Philosophy, Ph.D. Candidate, Computer Engineering (GPA: 3.90/4.00)
+Iowa State University (ISU), Ames, IA					                                                     December 2024
+Master of Science, M.S., Computer Engineering (GPA: 3.88/4.00)
+Lahore University of Management Sciences (LUMS), Lahore, Pakistan	          	                                    May 2020
+Bachelor of Science, B.S., Computer Science (GPA: 3.56/4.00. Placed on Dean’s Honor List for 5/8 semesters)
+SKILLS
+ML / AI: TensorFlow, PyTorch, scikit-learn, Keras, GNNs, Transformers, RNNs, GANs
+Data & Systems: PySpark, Apache Spark, Apache Flink, Hadoop, SQL
+Languages: Python, C++, Java, JavaScript/ReactJS
+Tools: LaTeX, Git, MDAnalysis, NumPy, Pandas, Linux/Unix, Version Control
+EXPERIENCE
+Engineering Data Scientist Intern           			            		  	                May 2025 – Aug 2025
+Altair Engineering Inc., Troy, MI		
+• Performed all the functions of a Machine Learning Engineer by improving Altair’s PhysicsAI predictive models by developing and optimizing GNN, Transformer, and RNN-based architectures for large-scale spatio-temporal physical simulation data, achieving a 10× reduction in MAE and enabling higher-fidelity, longer-horizon predictions.
+• Built and deployed scalable ML pipelines using PyTorch and TensorFlow, supporting end-to-end training, evaluation, and GPU-accelerated inference tightly integrated with Altair’s production simulation platform.
+• Optimized model performance and reliability by profiling memory, compute, and inference latency, enabling stable large-scale training and efficient deployment for high-resolution simulations.
+Research Engineer (Graduate Research Assistant)           			                   	     June 2022 – Present
+Department of Electrical and Computer Engineering, ISU, Ames, IA		
+•	BARMC (SIGSPATIAL 2024)
+Created the Bond‑Aware Relaxed Moving Clusters (BARMC) algorithm (SIGSPATIAL 2024), introducing spatio-temporal clustering and efficient event detection primitives that delivered ~1.7x faster hydrogen-bond (HB) analysis and enabled real time processing of 800k-frame molecular simulations.
+Built a scalable ML-ready pipeline (SIGSPATIAL 2024) for real time HB detection and persistence modeling, integrating temporal reasoning, structured sequence extraction, and scientific visualization for 6k-atom MD systems, supporting downstream predictive modeling and simulation-ML workflows.
+•	Compression and Performance Engineering (ADBIS 2022)
+Developed a trajectory-compression and spatial-pruning framework that achieved 80% storage reduction and 3× faster analytical queries, substantially improving the efficiency of representation learning, motif extraction, and long-horizon analysis on high-resolution molecular trajectories, achieving an award at ADBIS 2022.
+•	SDMC Framework (Pending Submission - 2026)
+Designed the Semantic Diversity in Moving Clusters (SDMC) framework, implementing Brute-Force, ED-SDMC, and Grid-SDMC algorithms that achieved 17 to 65 times speedups using indexing, embedding-based similarity measures, and spatial partitioning, advancing diversity-aware clustering in dynamic environments.
+•	Motif Mining and Scientific ML (Pending Submission - 2026)
+Developed large-scale motif-mining pipelines leveraging geometric descriptors, spatio-temporal statistics, and learned embeddings to identify aromatic ring-pair configurations predictive of HB persistence - enabling new scientific ML approaches for event prediction and simulation understanding.
+ 
+Research Engineer 			  				                 	   	    Jan 2021 – May 2022
+Department of Electrical and Computer Engineering, ISU, Ames, IA
+• Large-Scale Data Analysis (MapReduce): Developed optimized Hadoop MapReduce algorithms in Java to extract top 10 bigrams from large text corpora, achieving a 2x speedup. Implemented scalable Word Count pipelines across Shakespeare and Gutenberg datasets.
+• Sarcasm Detection (ML/NLP): Built sarcasm-classification models using LSTM, SVM, and Decision Trees, achieving 84% precision / 82% recall on a Kaggle news-headline dataset.
+• DCGAN for Emoji Generation: Implemented and trained a DCGAN for high-fidelity emoji synthesis, stabilizing training and achieving reliable generation quality (Discriminator loss: 0.426, Generator loss: 1.665).
+• CIFAR-10 Image Classification (CNNs): Designed custom and Keras-based CNN architectures with pooling, dropout, and batch normalization, achieving 72% accuracy on CIFAR-10 and comparing performance across layer-optimization strategies.
+Student Instructor (Teaching Assistant)                                                                                      	     Jan 2021 – Dec 2025
+Department of Electrical and Computer Engineering, ISU, Ames, IA
+Courses Taught: Software Tools for Large Scale Data Analysis, Software Analysis & Verification for Safety and Security, Intro to Spreadsheets and Databases, Digital Logic Circuits, Software Evolution and Maintenance, Introduction to Computer Engineering and Problem Solving
+•	Prepared an updated curriculum with a focus on real-world applications, including software safety and data management.
+•	Utilized Discord and other platforms to enhance student engagement and facilitate project collaborations.
+•	Mentored and guided over 400 students across multiple courses, focusing on real-world applications in software system security, data analysis techniques, and hands-on learning.
+•	Conducted rigorous evaluation, ensuring academic integrity and mastery of course material.
+Student Instructor (Teaching Assistant)                                                                                             Jan 2018 – May 2020
+Department of Computer Science, LUMS, Lahore, Pakistan
+Courses Taught: Deep Learning, Discrete Mathematics, Computational Problem Solving (Head TA)
+•	Led tutorials and labs for 300+ students, focusing on algorithms, deep learning, and model optimization.
+•	Conducted additional sessions to clarify key ML concepts such as gradient descent, regularization, and activation functions, improving student performance and understanding
+Software Engineer Intern              			                                                     	           May - June 2018         Taar Consulting, Lahore, Pakistan		               		        
+•	Engineered a Customer Feedback Plugin for Retail Pro Prism, rapidly onboarding onto proprietary APIs and extending core platform functionality.
+•	Developed full-stack features using PHP, JavaScript, Python, and HTML/CSS, enabling seamless feedback capture within transactional workflows.
+•	Deployed the solution in production, collecting feedback across 1,000+ daily transactions to support data-driven customer experience analysis.
+INVOLVEMENT
+President					   						   May 2023 – Apr 2024
+Pakistan Student Association (PSA), ISU, Ames, IA
+•	Spearheaded community engagement events, including a Pakistan Independence Day with 80+ attendees.
+•	Managed budget and financial planning, applying data-driven strategies for optimal resource allocation.
+•	Engineered a social media campaign, leveraging real-time data analytics to dynamically adjust strategies, successfully raising $20,000 for flood relief efforts to aid 15 million affected people in Pakistan.
+HONORS AND AWARDS
+•	Awarded the title of “Preparing Future Faculty Associate” by Iowa State University 2025
+•	Received NSF (National Science Foundation) Grant at ACM SIGSPATIAL 2024
+•	Received Best Paper Award at ADBIS 2022.

@@ -1,0 +1,9 @@
+requests==2.32.3
+numpy==2.0.2
+faiss-cpu==1.9.0
+sentence-transformers==3.0.1
+pydantic==2.8.2
+tqdm==4.66.4
+rich==13.8.0
+feedparser==6.0.11
+streamlit==1.37.1
