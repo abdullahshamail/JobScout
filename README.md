@@ -2,7 +2,7 @@
 
 **AI-powered job discovery using LLM planners, LangGraph orchestration, and multi-source job ingestion.**
 
-[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://autojobscout.streamlit.app)
+[![Streamlit App](https://autojobscout.streamlit.app/)]
 
 ---
 
@@ -96,7 +96,7 @@ User Input (Resume + Intent)
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/yourusername/jobscout.git
+   git clone https://github.com/abdullahshamail/jobscout.git
    cd jobscout
    ```
 
