@@ -2,8 +2,6 @@
 
 **AI-powered job discovery using LLM planners, LangGraph orchestration, and multi-source job ingestion.**
 
-[![Streamlit App](https://autojobscout.streamlit.app/)]
-
 ---
 
 ## 🌟 Features
