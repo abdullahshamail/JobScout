@@ -3,14 +3,18 @@ from rag.index import JobIndex
 from jobs.remoteok import fetch_jobs as fetch_remoteok
 from jobs.remotive import fetch_jobs as fetch_remotive
 from jobs.weworkremotely import fetch_jobs as fetch_wwr
+from jobs.newgrad_jobs import fetch_jobs as fetch_newgrad
+from agents.enrich import fetch_job_description
+
+
 
 def ingest(job_limit_per_source=150):
     sources = [
-        ("RemoteOK", lambda: fetch_remoteok(limit=job_limit_per_source)),
-        ("Remotive", lambda: fetch_remotive(limit=job_limit_per_source)),
-        ("WeWorkRemotely", lambda: fetch_wwr(limit=job_limit_per_source)),
+    ("RemoteOK", lambda: fetch_remoteok(limit=job_limit_per_source)),
+    ("Remotive", lambda: fetch_remotive(limit=job_limit_per_source)),
+    ("WeWorkRemotely", lambda: fetch_wwr(limit=job_limit_per_source)),
+    ("NewGradJobs", lambda: fetch_newgrad(limit=job_limit_per_source)),
     ]
-
     all_jobs = []
     for _, fn in sources:
         try:
@@ -29,8 +33,17 @@ def ingest(job_limit_per_source=150):
         seen.add(key)
         deduped.append(j)
 
+    enriched = []
+    for job in deduped:
+        if not job.description or len(job.description) < 200:
+            desc = fetch_job_description(job.url)
+            if desc:
+                job.description = desc
+        enriched.append(job)
+
+
     # Build embeddings
-    texts = [(j.title + " " + j.company + " " + j.location + " " + j.description) for j in deduped]
+    texts = [(j.title + " " + j.company + " " + j.location + " " + j.description) for j in enriched]
     vecs = embed(texts)
 
     idx = JobIndex()

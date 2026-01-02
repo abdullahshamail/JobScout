@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-from typing import List, Dict
+from typing import List, Optional
 
 class Job(BaseModel):
     job_id: str
@@ -9,7 +9,7 @@ class Job(BaseModel):
     description: str
     tags: List[str]
     url: str
-    source: str
+    source: Optional[str] = "Unknown"
 
 class JobMatch(BaseModel):
     job: Job

@@ -17,6 +17,15 @@ class JobIndex:
         faiss.write_index(self.index, str(FAISS_INDEX))
         np.save(str(META), np.array(self.meta, dtype=object), allow_pickle=True)
 
-    def search(self, qvec, k=5):
-        scores, idxs = self.index.search(qvec, k)
-        return [(self.meta[i], scores[0][j]) for j, i in enumerate(idxs[0])]
+    def search(self, qvec, top_k: int):
+        # returns indices + scores
+        scores, idxs = self.index.search(qvec, top_k)
+
+        out = []
+        for score, idx in zip(scores[0], idxs[0]):
+            if idx == -1:
+                continue
+            job = self.meta[idx]   # or however you store jobs
+            out.append((job, float(score)))
+        return out
+

@@ -1,9 +1,38 @@
+# Core dependencies
 requests==2.32.3
 numpy==2.0.2
-faiss-cpu==1.9.0
-sentence-transformers==3.0.1
 pydantic==2.8.2
-tqdm==4.66.4
-rich==13.8.0
+python-dotenv==1.0.1
+
+# ML & Embeddings
+sentence-transformers==3.0.1
+faiss-cpu==1.9.0
+
+# Web scraping
+beautifulsoup4==4.12.3
 feedparser==6.0.11
+
+# LangChain & LangGraph
+langchain==0.2.14
+langchain-community==0.2.12
+langgraph==0.2.37
+
+# Optional: Cloud LLM providers (uncomment if using)
+# langchain-openai==0.1.20
+# langchain-anthropic==0.1.23
+# openai==1.40.0
+# anthropic==0.34.0
+
+# Web framework
 streamlit==1.37.1
+
+# CLI & UI
+rich==13.8.0
+tqdm==4.66.4
+
+# Utilities
+python-dateutil==2.9.0
+pytz==2024.1
+
+# Monitoring (optional)
+# sentry-sdk==2.13.0
