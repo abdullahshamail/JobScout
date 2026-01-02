@@ -19,7 +19,7 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# Custom CSS for better UI
+# Custom CSS
 st.markdown("""
 <style>
     .main-header {
@@ -34,22 +34,6 @@ st.markdown("""
         color: #666;
         font-size: 1.1rem;
         margin-bottom: 2rem;
-    }
-    .job-card {
-        border: 1px solid #e0e0e0;
-        border-radius: 8px;
-        padding: 1.5rem;
-        margin-bottom: 1rem;
-        transition: box-shadow 0.3s;
-    }
-    .job-card:hover {
-        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    }
-    .metric-card {
-        background: #f8f9fa;
-        padding: 1rem;
-        border-radius: 6px;
-        text-align: center;
     }
     .stButton>button {
         width: 100%;
@@ -89,7 +73,7 @@ with st.sidebar:
     )
     st.session_state.intent = intent
     
-    with st.expander("🎯 Advanced Settings"):
+    with st.expander("🎯 Advanced Settings", expanded=True):
         top_k = st.slider(
             "Number of results",
             min_value=5,
@@ -100,20 +84,20 @@ with st.sidebar:
         
         sources = st.multiselect(
             "Job Sources",
-            ["RemoteOK", "Remotive", "WeWorkRemotely", "NewGradJobs"],
+            ["RemoteOK", "Remotive", "WeWorkRemotely", "NewGradJobs", "Indeed", "Adzuna", "Greenhouse"],
             default=["RemoteOK", "Remotive", "WeWorkRemotely"],
             help="Select which job boards to search"
         )
         
         fetch_descriptions = st.checkbox(
             "Fetch full job descriptions",
-            value=True,
+            value=False,  # Default to False for speed
             help="Slower but more accurate matching"
         )
         
         run_gap_analysis = st.checkbox(
             "Run skill gap analysis",
-            value=config.DEFAULT_RUN_GAP_ANALYSIS,
+            value=True,
             help="Analyze missing skills for top matches"
         )
     
@@ -174,13 +158,21 @@ if search_button:
         st.error("⚠️ Please paste your resume text before searching.")
         st.stop()
     
+    if not sources:
+        st.error("⚠️ Please select at least one job source.")
+        st.stop()
+    
     if not intent.strip():
         st.warning("💡 Tip: Add a job search intent for better results!")
     
-    # Create initial state
+    # ✅ FIX: Pass user settings to the graph
     initial_state = {
         "resume_text": resume_text,
         "user_intent": intent or "relevant job opportunities",
+        "use_sources": sources,  # ✅ User-selected sources
+        "fetch_descriptions": fetch_descriptions,  # ✅ User preference
+        "top_k": top_k,  # ✅ User-selected count
+        "run_gap_analysis": run_gap_analysis,  # ✅ User preference
     }
     
     # Progress tracking
@@ -305,4 +297,4 @@ if st.session_state.results:
 
 # Footer
 st.divider()
-st.caption("Built with LangGraph, Streamlit, and powered by local LLMs")
+st.caption("Built with LangGraph, Streamlit, and powered by Groq LLMs")

@@ -9,7 +9,7 @@ STORAGE_DIR.mkdir(exist_ok=True)
 # LLM Configuration - Use Groq (free cloud API)
 USE_CLOUD_LLM = os.getenv("USE_CLOUD_LLM", "true").lower() == "true"
 GROQ_API_KEY = os.getenv("GROQ_API_KEY", "")
-LLM_MODEL = os.getenv("LLM_MODEL", "llama-3.1-70b-versatile")  # Groq model
+LLM_MODEL = os.getenv("LLM_MODEL", "llama-3.1-70b-versatile")
 LLM_TEMPERATURE = float(os.getenv("LLM_TEMPERATURE", "0.0"))
 
 # Fallback to Ollama for local development
@@ -21,12 +21,16 @@ EMBEDDING_MODEL = os.getenv("EMBEDDING_MODEL", "sentence-transformers/all-MiniLM
 EMBEDDING_DIM = 384
 
 # Job Fetching Configuration
-DEFAULT_JOB_LIMIT = int(os.getenv("DEFAULT_JOB_LIMIT", "100"))  # Reduced for cloud
+DEFAULT_JOB_LIMIT = int(os.getenv("DEFAULT_JOB_LIMIT", "100"))
 FETCH_TIMEOUT = int(os.getenv("FETCH_TIMEOUT", "20"))
 
 # Matching Configuration
 DEFAULT_TOP_K = int(os.getenv("DEFAULT_TOP_K", "10"))
 DEFAULT_RUN_GAP_ANALYSIS = os.getenv("DEFAULT_RUN_GAP_ANALYSIS", "true").lower() == "true"
+
+# New Job Source API Keys
+ADZUNA_APP_ID = os.getenv("ADZUNA_APP_ID", "")
+ADZUNA_APP_KEY = os.getenv("ADZUNA_APP_KEY", "")
 
 # Storage paths
 FAISS_INDEX_PATH = STORAGE_DIR / "jobs.faiss"
@@ -47,3 +51,7 @@ DEBUG_MODE = not IS_PRODUCTION
 STREAMLIT_PAGE_TITLE = "AutoJobScout - AI Job Discovery"
 STREAMLIT_PAGE_ICON = "🧭"
 STREAMLIT_LAYOUT = "wide"
+
+# Feature Flags
+ENABLE_CACHING = os.getenv("ENABLE_CACHING", "true").lower() == "true"
+ENABLE_ANALYTICS = os.getenv("ENABLE_ANALYTICS", "false").lower() == "true"
