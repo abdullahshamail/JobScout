@@ -1,6 +1,4 @@
-import requests
-
-OLLAMA = "http://localhost:11434/api/chat"
+from utils.llm import call_llm
 
 def explain(job, resume):
     if isinstance(job, (list, tuple)):
@@ -8,17 +6,12 @@ def explain(job, resume):
 
     prompt = f"""
 Resume:
-{resume}
+{resume[:3000]}
 
 Job:
 {job.title} at {job.company}
-{job.description}
+{job.description[:2000]}
 
-Explain fit and missing skills.
+Explain fit and missing skills in 3-4 sentences.
 """
-    r = requests.post(OLLAMA, json={
-        "model": "llama3.1:8b",
-        "messages": [{"role": "user", "content": prompt}],
-        "stream": False
-    }).json()
-    return r["message"]["content"]
+    return call_llm(prompt, max_tokens=500)

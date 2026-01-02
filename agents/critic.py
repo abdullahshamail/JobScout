@@ -1,10 +1,5 @@
-import requests
+from utils.llm import call_llm
 
 def critique(text):
     prompt = f"Check for hallucinations or unsupported claims:\n{text}"
-    r = requests.post("http://localhost:11434/api/chat", json={
-        "model": "llama3.1:8b",
-        "messages": [{"role": "user", "content": prompt}],
-        "stream": False
-    }).json()
-    return r["message"]["content"]
+    return call_llm(prompt, max_tokens=500)

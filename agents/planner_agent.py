@@ -1,8 +1,7 @@
-from langchain_core.prompts import ChatPromptTemplate
-from langchain_community.chat_models import ChatOllama
-from langchain_core.output_parsers import JsonOutputParser
+from utils.llm import call_llm
 from pydantic import BaseModel, Field
 from typing import List
+import json
 
 # ---------------- Schema ----------------
 class PlannerOutput(BaseModel):
@@ -11,15 +10,11 @@ class PlannerOutput(BaseModel):
     top_k: int = Field(description="Number of top jobs to return")
     run_gap_analysis: bool = Field(description="Whether to run skill gap analysis")
 
-# ---------------- LLM ----------------
-llm = ChatOllama(
-    model="llama3.1:8b",
-    temperature=0.0
-)
+def planner_agent(state):
+    if state.agent_log is None:
+        state.agent_log = []
 
-parser = JsonOutputParser(pydantic_object=PlannerOutput)
-
-PROMPT = ChatPromptTemplate.from_template("""
+    prompt = f"""
 You are a planner agent for a job discovery system.
 
 Your job is to decide HOW the pipeline should run.
@@ -31,40 +26,39 @@ Given:
 Choose from the following job sources ONLY:
 RemoteOK, Remotive, WeWorkRemotely, NewGradJobs
 
-Rules:
-- Return ONLY valid JSON
-- Do not include explanations
-- Do not include markdown
-- Do not include extra text
-
-{format_instructions}
-
 Resume:
-{resume}
+{state.resume_text[:2000]}
 
 Intent:
-{intent}
-""")
+{state.user_intent}
 
-def planner_agent(state):
-    if state.agent_log is None:
-        state.agent_log = []
+Return ONLY a JSON object with these fields:
+- use_sources: array of source names
+- fetch_descriptions: boolean
+- top_k: number (5-20)
+- run_gap_analysis: boolean
 
-    messages = PROMPT.format_messages(
-        resume=state.resume_text[:2000],
-        intent=state.user_intent,
-        format_instructions=parser.get_format_instructions()
-    )
-
-    result = llm.invoke(messages)
+JSON output:
+"""
 
     try:
-        parsed = parser.parse(result.content)     # dict
-        plan = PlannerOutput(**parsed)            # pydantic
-    except Exception:
+        response = call_llm(prompt, max_tokens=300)
+        
+        # Extract JSON from response (handle markdown code blocks)
+        json_str = response.strip()
+        if "```json" in json_str:
+            json_str = json_str.split("```json")[1].split("```")[0]
+        elif "```" in json_str:
+            json_str = json_str.split("```")[1].split("```")[0]
+        
+        parsed = json.loads(json_str)
+        plan = PlannerOutput(**parsed)
+    except Exception as e:
+        print(f"Planner parsing error: {e}")
+        # Fallback to defaults
         plan = PlannerOutput(
             use_sources=["RemoteOK", "Remotive", "WeWorkRemotely"],
-            fetch_descriptions=True,
+            fetch_descriptions=False,  # Faster for cloud
             top_k=10,
             run_gap_analysis=True
         )
