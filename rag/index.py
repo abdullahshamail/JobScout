@@ -1,31 +1,68 @@
-import faiss
 import numpy as np
-from storage.paths import FAISS_INDEX, META
+from sklearn.metrics.pairwise import cosine_similarity
+import pickle
+from pathlib import Path
+from storage.paths import STORAGE_DIR
+
+META_FILE = STORAGE_DIR / "meta.pkl"
+VECTORS_FILE = STORAGE_DIR / "vectors.npy"
 
 class JobIndex:
-    def __init__(self, dim=384):
-        self.index = faiss.IndexFlatIP(dim)
+    def __init__(self):
+        self.vectors = None
         self.meta = []
-
-        if FAISS_INDEX.exists():
-            self.index = faiss.read_index(str(FAISS_INDEX))
-            self.meta = list(np.load(str(META), allow_pickle=True))
+        
+        # Load existing index if available
+        if META_FILE.exists() and VECTORS_FILE.exists():
+            try:
+                with open(META_FILE, 'rb') as f:
+                    self.meta = pickle.load(f)
+                self.vectors = np.load(VECTORS_FILE)
+            except Exception as e:
+                print(f"Failed to load index: {e}")
+                self.vectors = None
+                self.meta = []
 
     def add(self, vectors, jobs):
-        self.index.add(vectors)
+        """Add vectors and job metadata to the index"""
+        if self.vectors is None:
+            self.vectors = vectors
+        else:
+            self.vectors = np.vstack([self.vectors, vectors])
+        
         self.meta.extend(jobs)
-        faiss.write_index(self.index, str(FAISS_INDEX))
-        np.save(str(META), np.array(self.meta, dtype=object), allow_pickle=True)
+        
+        # Save to disk
+        try:
+            STORAGE_DIR.mkdir(parents=True, exist_ok=True)
+            with open(META_FILE, 'wb') as f:
+                pickle.dump(self.meta, f)
+            np.save(VECTORS_FILE, self.vectors)
+        except Exception as e:
+            print(f"Failed to save index: {e}")
 
     def search(self, qvec, top_k: int):
-        # returns indices + scores
-        scores, idxs = self.index.search(qvec, top_k)
-
-        out = []
-        for score, idx in zip(scores[0], idxs[0]):
-            if idx == -1:
-                continue
-            job = self.meta[idx]   # or however you store jobs
-            out.append((job, float(score)))
-        return out
-
+        """Search for top_k most similar jobs using cosine similarity"""
+        if self.vectors is None or len(self.meta) == 0:
+            return []
+        
+        # Ensure qvec is 2D
+        if qvec.ndim == 1:
+            qvec = qvec.reshape(1, -1)
+        
+        # Compute cosine similarity
+        similarities = cosine_similarity(qvec, self.vectors)[0]
+        
+        # Get top k indices
+        top_k = min(top_k, len(similarities))
+        top_indices = np.argsort(similarities)[::-1][:top_k]
+        
+        # Return (job, score) tuples
+        results = []
+        for idx in top_indices:
+            if idx < len(self.meta):
+                job = self.meta[idx]
+                score = float(similarities[idx])
+                results.append((job, score))
+        
+        return results
