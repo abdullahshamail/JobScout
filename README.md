@@ -22,12 +22,6 @@ Try it now: **[autojobscout.streamlit.app](https://autojobscout.streamlit.app)**
 
 ---
 
-## 📸 Screenshots
-
-![AutoJobScout Interface](https://via.placeholder.com/800x400?text=AutoJobScout+Dashboard)
-
----
-
 ## 🏗️ Architecture
 
 ```
